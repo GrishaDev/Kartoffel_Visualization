@@ -63,7 +63,7 @@ d3.json('/getData', function(error, root) {
   var node = g.selectAll("circle,text");
   
   svg
-      .style("background", color(-10)) // -1
+      .style("background", color(-1)) // -1
       .on("click", function() { zoom(root); currentplace = root.data.name; console.log(currentplace);
       document.getElementById('panel').innerHTML = "Depth: "+currentplace;});
       

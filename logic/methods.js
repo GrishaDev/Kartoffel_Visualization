@@ -24,11 +24,16 @@ class methods
 
     async getData(req,res)
     {
-        await this.getAll_KartoffelData();
-        // let groups = fs.readFileSync(path.join(__dirname,'../jsons/groups.json'),'utf8');
-        // groups = JSON.parse(groups);
-        res.json(this.alldata);
+        let alldata = await this.getAll_KartoffelData();
+        res.json(alldata);
     }
+
+    // async getStatic(req,res)
+    // {
+    //     let groups = fs.readFileSync(path.join(__dirname,'../jsons/groups.json'),'utf8');
+    //     groups = JSON.parse(groups);
+    //     res.json(groups);
+    // }
 
     async getPath(req,res) // dev
     {
@@ -55,9 +60,10 @@ class methods
     {
         let pathdata = await axios.get(cfg.host+cfg.getAll+this.allpath);
 
-        this.alldata = await this.Kartoffel_data_parse(pathdata.data);
+        let alldata = await this.Kartoffel_data_parse(pathdata.data);
         fs.writeFileSync(path.join(__dirname,'../jsons/groups.json'), JSON.stringify(this.alldata), 'utf8');
         console.log("done");
+        return alldata;
     }
 
     async Kartoffel_data_parse(group){

@@ -1,0 +1,6 @@
+{
+    "host": "http://localhost:5000",
+    "getGroup": "/api/organizationgroups/id/",
+    "getAll": "/api/organizationgroups/path/",
+    "all": "meme"
+}

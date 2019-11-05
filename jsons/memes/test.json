@@ -1,0 +1,10 @@
+{
+    "name": "origin",
+    "uselessparam": "...",
+    "children": [
+        "1",
+        "2",
+        "3"
+    ],
+    "isALeaf": false
+}

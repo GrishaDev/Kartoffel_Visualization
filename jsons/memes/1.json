@@ -1,0 +1,9 @@
+{
+    "name": "one",
+    "uselessparam": "...",
+    "children": [
+        "4",
+        "5"
+    ],
+    "isALeaf": false
+}

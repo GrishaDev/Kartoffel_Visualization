@@ -13,27 +13,36 @@ class methods
 
     async init()
     {
+        this.static = false;
         this.allpath = encodeURIComponent(cfg.all);
-        // this.getAll_KartoffelData();
+        let alldata = await this.getAll_KartoffelData();
+        fs.writeFileSync(path.join(__dirname,'../jsons/groups.json'), JSON.stringify(alldata), 'utf8');
     }
 
     async getVisualization(req,res)
-    {  
+    {
         res.sendFile(path.join(__dirname, '../client/main.html'));
     }
 
     async getData(req,res)
     {
-        let alldata = await this.getAll_KartoffelData();
-        res.json(alldata);
+        if(this.static){
+            let groups = fs.readFileSync(path.join(__dirname,'../jsons/groups.json'),'utf8');
+            groups = JSON.parse(groups);
+            res.json(groups);
+        }
+        else{
+            let alldata = await this.getAll_KartoffelData();
+            res.json(alldata);
+        }
+        this.static = false;
     }
 
-    // async getStatic(req,res)
-    // {
-    //     let groups = fs.readFileSync(path.join(__dirname,'../jsons/groups.json'),'utf8');
-    //     groups = JSON.parse(groups);
-    //     res.json(groups);
-    // }
+    async getStatic(req,res)
+    {
+        this.static = true;
+        res.redirect('/');
+    }
 
     async getPath(req,res) // dev
     {
@@ -61,7 +70,6 @@ class methods
         let pathdata = await axios.get(cfg.host+cfg.getAll+this.allpath);
 
         let alldata = await this.Kartoffel_data_parse(pathdata.data);
-        fs.writeFileSync(path.join(__dirname,'../jsons/groups.json'), JSON.stringify(this.alldata), 'utf8');
         console.log("done");
         return alldata;
     }
@@ -91,8 +99,15 @@ class methods
 
     async getKartoffelGroup(id)
     {
-        let group = await axios.get(cfg.host + cfg.getGroup + id);
-        return group.data;
+        try
+        {
+            let group = await axios.get(cfg.host + cfg.getGroup + id);
+            return group.data;
+        }
+        catch(err){
+            console.log("Error happened : "+err);
+            return;
+        }
     }
 }
 

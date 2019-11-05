@@ -7,6 +7,8 @@
 var app = require('../app');
 var debug = require('debug')('kartoffel-visualization:server');
 var http = require('http');
+const fs = require('fs');
+// require("tls").DEFAULT_ECDH_CURVE = "auto"
 
 /**
  * Get port from environment and store in Express.
@@ -16,10 +18,24 @@ var port = normalizePort(process.env.PORT || '5000');
 app.set('port', port);
 
 /**
- * Create HTTP server.
+ * Create http server.
  */
 
-var server = http.createServer(app);
+
+
+// process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
+
+// var key = fs.readFileSync(__dirname + '/../certs/key.pem',{encoding: 'utf-8'});
+// console.log(key);
+// var cert = fs.readFileSync(__dirname + '/../certs/cert.pem',{encoding: 'utf-8'});
+// var options = {
+//   key: key,
+//   cert: cert,
+//   passphrase: 'meme'
+// };
+
+
+var server = http.createServer(app); // options,app
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -50,7 +66,7 @@ function normalizePort(val) {
 }
 
 /**
- * Event listener for HTTP server "error" event.
+ * Event listener for http server "error" event.
  */
 
 function onError(error) {
@@ -78,7 +94,7 @@ function onError(error) {
 }
 
 /**
- * Event listener for HTTP server "listening" event.
+ * Event listener for http server "listening" event.
  */
 
 function onListening() {
@@ -87,4 +103,5 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
+  console.log('Listening on ' + bind);
 }

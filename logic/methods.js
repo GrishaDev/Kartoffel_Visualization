@@ -44,22 +44,6 @@ class methods
         res.redirect('/');
     }
 
-    async getPath(req,res) // dev
-    {
-        let data = fs.readFileSync(path.join(__dirname,'../jsons/memes/test.json'),'utf8');
-        data = JSON.parse(data);
-        res.json(data);
-    }
-
-    async getGroup(req,res) // dev
-    {
-        let id = req.params.id;
-        let data = fs.readFileSync(path.join(__dirname,'../jsons/memes/'+id+'.json'),'utf8');
-        data = JSON.parse(data);
-        res.json(data);
-    }
-
-
     async auth()
     {
         //make all auth things here
@@ -108,6 +92,24 @@ class methods
             console.log("Error happened : "+err);
             return;
         }
+    }
+
+
+    // dev:
+    
+    async getPath(req,res) // dev
+    {
+        let data = fs.readFileSync(path.join(__dirname,'../jsons/memes/test.json'),'utf8');
+        data = JSON.parse(data);
+        res.json(data);
+    }
+
+    async getGroup(req,res) // dev
+    {
+        let id = req.params.id;
+        let data = fs.readFileSync(path.join(__dirname,'../jsons/memes/'+id+'.json'),'utf8');
+        data = JSON.parse(data);
+        res.json(data);
     }
 }
 

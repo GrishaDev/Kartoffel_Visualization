@@ -22,7 +22,7 @@ app.set('port', port);
  */
 
 
-
+// openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365
 // process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
 // var key = fs.readFileSync(__dirname + '/../certs/key.pem',{encoding: 'utf-8'});
